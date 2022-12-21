@@ -6,6 +6,7 @@ import thunk from "redux-thunk";
 import {persistStore, persistReducer} from "redux-persist";
 // storage means LocalStorage
 import storage from 'redux-persist/lib/storage'
+import {encryptTransform} from "redux-persist-transform-encrypt";
 
 
 // Middlewares
@@ -17,6 +18,15 @@ const intialState = {};
 const persistConfig = {
     key: 'store',
     storage,
+    transforms: [
+        // For Store Encryption in LocalStorage
+        encryptTransform({
+            secretKey: 'developed-by-jasir-ullah-khan',
+            onError: function (error) {
+                console.log("Error during encryption", error);
+            },
+        }),
+    ],
     // whitelist : ["amount"],
     // blacklist : ["amount"],
 }
