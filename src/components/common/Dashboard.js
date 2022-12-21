@@ -79,7 +79,7 @@ export default function Dashboard(props) {
             <Divider/>
 
 
-            {/*todo create an separate component for this*/}
+            {/*todo create a separate component for this*/}
             <List>
                 {sideNavLink.map((link, index) => {
                     if (link?.Divider === true) {
@@ -87,7 +87,7 @@ export default function Dashboard(props) {
                     }
 
                     if (link?.type === 'category') {
-                        return link.children.map((children, index1) => {
+                        return link.children.map((childLink, index1) => {
                             return <ListItem key={index1} disablePadding sx={{display: 'block'}}>
                                 <ListItemButton
                                     sx={{
@@ -100,9 +100,9 @@ export default function Dashboard(props) {
                                             minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
                                         }}
                                     >
-                                        {<children.Icon/>}
+                                        {<childLink.icon/>}
                                     </ListItemIcon>
-                                    <ListItemText primary={children.Title} sx={{opacity: open ? 1 : 0}}/>
+                                    <ListItemText primary={childLink.title} sx={{opacity: open ? 1 : 0}}/>
                                 </ListItemButton>
                             </ListItem>
                         })
@@ -120,9 +120,9 @@ export default function Dashboard(props) {
                                     minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
                                 }}
                             >
-                                {<link.Icon/>}
+                                {<link.icon/>}
                             </ListItemIcon>
-                            <ListItemText primary={link.Title} sx={{opacity: open ? 1 : 0}}/>
+                            <ListItemText primary={link.title} sx={{opacity: open ? 1 : 0}}/>
                         </ListItemButton>
                     </ListItem>
                 })}

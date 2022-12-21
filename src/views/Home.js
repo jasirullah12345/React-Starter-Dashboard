@@ -9,22 +9,22 @@ import {BsFileEarmarkMedical,BsFileEarmarkBarGraph} from "react-icons/bs";
 
 const Home = () => {
     const sideNavLink = [
-        {Title: "Home", Path: "/", Icon: AiOutlineHome},
-        {Title: "Accounts", Path: "/accounts", Icon: GiWhiteBook},
-        {Title: "Customers", Path: "/customers", Icon: MdSwitchAccount},
-        {Title: "Search", Path: "/search", Icon: BiSearchAlt},
+        {title: "Home", path: "/", icon: AiOutlineHome},
+        {title: "Accounts", path: "/accounts", icon: GiWhiteBook},
+        {title: "Customers", path: "/customers", icon: MdSwitchAccount},
+        {title: "Search", path: "/search", icon: BiSearchAlt},
         {Divider: true},
         {
-            Title: "Reports", Path: "/reports", type: "category", Icon: BsFileEarmarkMedical,
+            title: "Reports", path: "/reports", type: "category", icon: BsFileEarmarkMedical,
             children: [
-                {Title: "Monthly", Path: "/reports/monthly", Icon: TbReportSearch},
-                {Title: "Defaulter", Path: "/reports/defaulter", Icon: MdPendingActions},
-                {Title: "Market", Path: "/reports/market", Icon: BsFileEarmarkBarGraph},
-                {Title: "Backup", Path: "/reports/backup", Icon: AiOutlineCloudSync},
+                {title: "Monthly", path: "/reports/monthly", icon: TbReportSearch},
+                {title: "Defaulter", path: "/reports/defaulter", icon: MdPendingActions},
+                {title: "Market", path: "/reports/market", icon: BsFileEarmarkBarGraph},
+                {title: "Backup", path: "/reports/backup", icon: AiOutlineCloudSync},
             ]
         },
         {Divider: true},
-        {Title: "Logout", Path: "/logout", Icon: BiLogOut},
+        {title: "Logout", path: "/logout", icon: BiLogOut},
     ]
 
     return (
