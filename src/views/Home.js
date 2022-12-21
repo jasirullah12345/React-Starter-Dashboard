@@ -1,7 +1,9 @@
 import React from 'react';
 import {TextField} from "@mui/material";
+import {bindActionCreators} from "redux";
 
 const Home = () => {
+
     return (
         <>
             <h1 className="text-3xl text-red-500 font-bold underline">
