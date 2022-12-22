@@ -1,13 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Dashboard from "../components/common/Dashboard";
-import {AiOutlineHome, AiOutlineCloudSync} from "react-icons/ai";
+import {AiOutlineCloudSync, AiOutlineHome} from "react-icons/ai";
 import {GiWhiteBook} from "react-icons/gi";
-import {TbReportSearch} from "react-icons/tb";
 import {MdPendingActions, MdSwitchAccount} from "react-icons/md";
 import {BiLogOut, BiSearchAlt} from "react-icons/bi";
-import {BsFileEarmarkMedical,BsFileEarmarkBarGraph} from "react-icons/bs";
+import {BsFileEarmarkBarGraph, BsFileEarmarkMedical} from "react-icons/bs";
+import {TbReportSearch} from "react-icons/tb";
+import {useNavigate} from "react-router-dom";
+import {useLocalStorage} from "../utils/hooks/localstorage";
 
-const Home = () => {
+const ProtectedLayout = () => {
+    const navigate = useNavigate();
+    // eslint-disable-next-line no-unused-vars
+    const [authToken, setAuthToken] = useLocalStorage("auth-token", null);
+
+    useEffect(() => {
+
+        // Todo Check if token is valid
+
+        if (!authToken?.length > 0) {
+            navigate("/signin");
+        }
+    }, []);
+
     const sideNavLink = [
         {title: "Home", path: "/", icon: AiOutlineHome},
         {title: "Accounts", path: "/accounts", icon: GiWhiteBook},
@@ -34,4 +49,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default ProtectedLayout;

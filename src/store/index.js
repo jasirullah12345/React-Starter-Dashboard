@@ -13,7 +13,7 @@ import {encryptTransform} from "redux-persist-transform-encrypt";
 const middlewares = [thunk];
 
 // Initial State
-const intialState = {};
+const storeIntialState = {};
 
 const persistConfig = {
     key: 'store',
@@ -35,9 +35,9 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, reducers)
 
 // Create Store Using Persisted reducers
-const store = createStore(persistedReducer, intialState, applyMiddleware(...middlewares));
+const store = createStore(persistedReducer, storeIntialState, applyMiddleware(...middlewares));
 
 // Create persistor Using Store
 const persistor = persistStore(store)
 
-export {store, persistor}
+export {store, persistor, storeIntialState}
