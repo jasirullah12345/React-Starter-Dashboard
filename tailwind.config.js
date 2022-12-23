@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'primary': '#1A2238',
+        'secondary': '#FF6A3D',
+      }
+    },
   },
   plugins: [],
 }

@@ -7,6 +7,8 @@ import {persistStore, persistReducer} from "redux-persist";
 // storage means LocalStorage
 import storage from 'redux-persist/lib/storage'
 import {encryptTransform} from "redux-persist-transform-encrypt";
+import {PersistGate} from "redux-persist/integration/react";
+import {Provider} from "react-redux";
 
 
 // Middlewares
@@ -40,4 +42,14 @@ const store = createStore(persistedReducer, storeIntialState, applyMiddleware(..
 // Create persistor Using Store
 const persistor = persistStore(store)
 
-export {store, persistor, storeIntialState}
+const ReduxPersisted = ({children}) => {
+    return (
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                {children}
+            </PersistGate>
+        </Provider>
+    );
+};
+
+export {store, persistor, storeIntialState, ReduxPersisted}

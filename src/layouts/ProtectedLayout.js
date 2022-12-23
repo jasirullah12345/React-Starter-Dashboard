@@ -39,6 +39,26 @@ const ProtectedLayout = () => {
             ]
         },
         {Divider: true},
+        {
+            title: "Reports", path: "/reports", type: "category", icon: BsFileEarmarkMedical,
+            children: [
+                {title: "Monthly", path: "/reports/monthly", icon: TbReportSearch},
+                {title: "Defaulter", path: "/reports/defaulter", icon: MdPendingActions},
+                {title: "Market", path: "/reports/market", icon: BsFileEarmarkBarGraph},
+                {title: "Backup", path: "/reports/backup", icon: AiOutlineCloudSync},
+            ]
+        },
+        {Divider: true},
+        {
+            title: "Reports", path: "/reports", type: "category", icon: BsFileEarmarkMedical,
+            children: [
+                {title: "Monthly", path: "/reports/monthly", icon: TbReportSearch},
+                {title: "Defaulter", path: "/reports/defaulter", icon: MdPendingActions},
+                {title: "Market", path: "/reports/market", icon: BsFileEarmarkBarGraph},
+                {title: "Backup", path: "/reports/backup", icon: AiOutlineCloudSync},
+            ]
+        },
+        {Divider: true},
         {title: "Logout", path: "/logout", icon: BiLogOut},
     ]
 

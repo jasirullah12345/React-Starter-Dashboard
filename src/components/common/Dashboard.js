@@ -21,7 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import {Outlet} from "react-router-dom";
 
-const drawerWidth = 250;
+const drawerWidth = 270;
 
 export default function Dashboard(props) {
     const {sideNavLink} = props;
@@ -34,53 +34,75 @@ export default function Dashboard(props) {
         setOpen(!open);
     };
 
-    return (<Box sx={{display: 'flex'}}>
-        <CssBaseline/>
-        <AppBar position="fixed" open={open}>
-            <Toolbar>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleDrawerToggle}
-                    edge="start"
-                    sx={{
-                        marginRight: 5, // ...(open && { display: 'none' }),
-                    }}
-                >
-                    <MenuIcon/>
-                </IconButton>
-                <Typography variant="h6" noWrap component="div">
-                    Mini variant drawer
-                </Typography>
-            </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-            <DrawerHeader className={"pl-5"}>
+    return (
+        <Box sx={{display: 'flex'}}>
+            <CssBaseline/>
+            <AppBar position="fixed" open={open}>
+                <Toolbar>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleDrawerToggle}
+                        edge="start"
+                        sx={{
+                            marginRight: 5, // ...(open && { display: 'none' }),
+                        }}
+                    >
+                        <MenuIcon/>
+                    </IconButton>
+                    <Typography variant="h6" noWrap component="div">
+                        Mini variant drawer
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Drawer variant="permanent" open={open}>
+                <DrawerHeader sx={{ml: 2}}>
 
-                <AcUnitIcon/>
+                    <AcUnitIcon/>
 
-                <Typography variant="h6" fontWeight={800} noWrap component="div" marginLeft={"20px"}>
-                    Jasir Ullah Khan
-                </Typography>
-
-
-                {/*<IconButton onClick={handleDrawerClose}>*/}
-                {/*    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}*/}
-                {/*</IconButton>*/}
-            </DrawerHeader>
-            <Divider/>
+                    <Typography variant="h6" fontWeight={800} noWrap component="div" marginLeft={"20px"}>
+                        Jasir Ullah Khan
+                    </Typography>
 
 
-            {/*todo create a separate component for this*/}
-            <List>
-                {sideNavLink.map((link, index) => {
-                    if (link?.Divider === true) {
-                        return (<Divider/>)
-                    }
+                    {/*<IconButton onClick={handleDrawerClose}>*/}
+                    {/*    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}*/}
+                    {/*</IconButton>*/}
+                </DrawerHeader>
+                <Divider/>
 
-                    if (link?.type === 'category') {
-                        return link.children.map((childLink, index1) => {
-                            return <ListItem key={index1} disablePadding sx={{display: 'block'}}>
+
+                {/*todo create a separate component for this*/}
+                <Box sx={{overflow: 'auto'}}>
+                    <List>
+                        {sideNavLink.map((link, index) => {
+                            if (link?.Divider === true) {
+                                return (<Divider sx={{mx: 2}}/>)
+                            }
+
+                            if (link?.type === 'category') {
+                                return link.children.map((childLink, index1) => {
+                                    return <ListItem key={index1} disablePadding sx={{display: 'block'}}>
+                                        <ListItemButton
+                                            sx={{
+                                                minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
+                                            }}
+                                        >
+                                            <ListItemIcon
+                                                className={"text-xl"}
+                                                sx={{
+                                                    minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
+                                                }}
+                                            >
+                                                {<childLink.icon/>}
+                                            </ListItemIcon>
+                                            <ListItemText primary={childLink.title} sx={{opacity: open ? 1 : 0}}/>
+                                        </ListItemButton>
+                                    </ListItem>
+                                })
+                            }
+
+                            return <ListItem key={index} disablePadding sx={{display: 'block'}}>
                                 <ListItemButton
                                     sx={{
                                         minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
@@ -92,43 +114,20 @@ export default function Dashboard(props) {
                                             minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
                                         }}
                                     >
-                                        {<childLink.icon/>}
+                                        {<link.icon/>}
                                     </ListItemIcon>
-                                    <ListItemText primary={childLink.title} sx={{opacity: open ? 1 : 0}}/>
+                                    <ListItemText primary={link.title} sx={{opacity: open ? 1 : 0}}/>
                                 </ListItemButton>
                             </ListItem>
-                        })
-                    }
-
-                    return <ListItem key={index} disablePadding sx={{display: 'block'}}>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48, justifyContent: open ? 'initial' : 'center', px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                className={"text-xl"}
-                                sx={{
-                                    minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center',
-                                }}
-                            >
-                                {<link.icon/>}
-                            </ListItemIcon>
-                            <ListItemText primary={link.title} sx={{opacity: open ? 1 : 0}}/>
-                        </ListItemButton>
-                    </ListItem>
-                })}
-            </List>
-
-
-        </Drawer>
-        <Box component="main" sx={{flexGrow: 1, p: 3}}>
-            <DrawerHeader/>
-
-            <Outlet/>
-
-        </Box>
-    </Box>);
+                        })}
+                    </List>
+                </Box>
+            </Drawer>
+            <Box component="main" sx={{flexGrow: 1, p: 3}}>
+                <DrawerHeader/>
+                <Outlet/>
+            </Box>
+        </Box>);
 }
 
 const openedMixin = (theme) => ({
