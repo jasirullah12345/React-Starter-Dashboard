@@ -11,6 +11,7 @@ const UnProtectedLayout = () => {
         if (authToken?.length > 0) {
             navigate("/");
         }
+        // eslint-disable-next-line
     }, []);
 
 
