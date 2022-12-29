@@ -1,3 +1,3 @@
-import * as menuAction from './menu';
+import * as amountAction from './amount';
 
-export {menuAction}
+export {amountAction}

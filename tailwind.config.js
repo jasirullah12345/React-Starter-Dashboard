@@ -3,14 +3,11 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
-  corePlugins: {
-    preflight: false,
-  },
   theme: {
     extend: {
       colors: {
-        'primary': '#3b82f6',
-        'secondary': '#4b5563',
+        'primary': '#1A2238',
+        'secondary': '#FF6A3D',
       }
     },
   },

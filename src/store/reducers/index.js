@@ -1,10 +1,10 @@
+import {combineReducers} from "redux";
+import AmountReducer from "./amount";
 import {storeIntialState} from "../index";
 import {RESET_STORE} from "../actionTypes";
-import {combineReducers} from "redux";
-import MenuReducer from "./menu";
 
 const appReducers = combineReducers({
-    menu: MenuReducer,
+    amount: AmountReducer
 })
 
 const reducers = (state, action) => {

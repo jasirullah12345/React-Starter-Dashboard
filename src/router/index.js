@@ -1,4 +1,5 @@
 import {createBrowserRouter} from "react-router-dom";
+import UnProtectedLayout from "../layouts/UnProtectedLayout";
 import ProtectedLayout from "../layouts/ProtectedLayout";
 import NotFound from "../components/common/NotFound";
 import {usersRoutes} from "./user";

@@ -19,7 +19,6 @@ const SignOut = () => {
         setAuthToken(null);
 
         navigate("/signin");
-        // eslint-disable-next-line
     }, []);
 
     return (
