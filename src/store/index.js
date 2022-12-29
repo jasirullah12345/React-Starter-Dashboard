@@ -1,27 +1,23 @@
-import {applyMiddleware, createStore} from "redux";
-import reducers from "./reducers";
-// Middleware to run async functions
-import thunk from "redux-thunk";
-// Redux-Persist
-import {persistStore, persistReducer} from "redux-persist";
-// storage means LocalStorage
-import storage from 'redux-persist/lib/storage'
+// third-party
+import {configureStore} from '@reduxjs/toolkit';
+import {Provider, useDispatch as useAppDispatch, useSelector as useAppSelector} from 'react-redux';
+import {persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, persistReducer} from 'redux-persist';
 import {encryptTransform} from "redux-persist-transform-encrypt";
 import {PersistGate} from "redux-persist/integration/react";
-import {Provider} from "react-redux";
+import storage from 'redux-persist/lib/storage';
 
+// project import
+import reducers from './reducers';
 
-// Middlewares
-const middlewares = [thunk];
+// ==============================|| REDUX TOOLKIT - MAIN STORE ||============================== //
 
-// Initial State
-const storeIntialState = {};
 
 const persistConfig = {
+    keyPrefix: process.env.REACT_APP_APP_NAME.toLowerCase() + '-',
     key: 'store',
     storage,
     transforms: [
-        // For Store Encryption in LocalStorage
+        // // For Store Encryption in LocalStorage
         encryptTransform({
             secretKey: 'developed-by-jasir-ullah-khan',
             onError: function (error) {
@@ -36,11 +32,22 @@ const persistConfig = {
 // Persist All reducers
 const persistedReducer = persistReducer(persistConfig, reducers)
 
-// Create Store Using Persisted reducers
-const store = createStore(persistedReducer, storeIntialState, applyMiddleware(...middlewares));
+const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+            }
+        })
+});
 
-// Create persistor Using Store
-const persistor = persistStore(store)
+const persistor = persistStore(store);
+
+const {dispatch} = store;
+
+const useDispatch = () => useAppDispatch();
+const useSelector = useAppSelector;
 
 const ReduxPersisted = ({children}) => {
     return (
@@ -52,4 +59,4 @@ const ReduxPersisted = ({children}) => {
     );
 };
 
-export {store, persistor, storeIntialState, ReduxPersisted}
+export {store, dispatch, useSelector, useDispatch, ReduxPersisted};

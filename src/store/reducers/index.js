@@ -1,19 +1,15 @@
-import {storeIntialState} from "../index";
-import {RESET_STORE} from "../actionTypes";
-import {combineReducers} from "redux";
-import MenuReducer from "./menu";
+// third-party
+import { combineReducers } from 'redux';
 
-const appReducers = combineReducers({
-    menu: MenuReducer,
-})
+// project import
+import menu from './menu';
+import snackbar from './snackbar';
 
-const reducers = (state, action) => {
-    // Reset Store to initial state.
-    if (action.type === RESET_STORE) {
-        state = storeIntialState;
-    } else {
-        return appReducers(state, action);
-    }
-};
+// ==============================|| COMBINE REDUCERS ||============================== //
 
-export default reducers
+const reducers = combineReducers({
+  menu,
+  snackbar,
+});
+
+export default reducers;

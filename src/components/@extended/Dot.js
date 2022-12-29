@@ -4,45 +4,36 @@ import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
-const Dot = ({ color, size }) => {
-    const theme = useTheme();
-    let main;
-    switch (color) {
-        case 'secondary':
-            main = theme.palette.secondary.main;
-            break;
-        case 'error':
-            main = theme.palette.error.main;
-            break;
-        case 'warning':
-            main = theme.palette.warning.main;
-            break;
-        case 'info':
-            main = theme.palette.info.main;
-            break;
-        case 'success':
-            main = theme.palette.success.main;
-            break;
-        case 'primary':
-        default:
-            main = theme.palette.primary.main;
-    }
+// project import
+import getColors from 'utils/getColors';
 
-    return (
-        <Box
-            sx={{
-                width: size || 8,
-                height: size || 8,
-                borderRadius: '50%',
-                bgcolor: main
-            }}
-        />
-    );
+const Dot = ({ color, size, variant, sx }) => {
+  const theme = useTheme();
+  const colors = getColors(theme, color || 'primary');
+  const { main } = colors;
+
+  return (
+    <Box
+      component="span"
+      sx={{
+        width: size || 8,
+        height: size || 8,
+        borderRadius: '50%',
+        bgcolor: variant === 'outlined' ? '' : main,
+        ...(variant === 'outlined' && {
+          border: `1px solid ${main}`
+        }),
+        ...sx
+      }}
+    />
+  );
 };
 
 Dot.propTypes = {
-    color: PropTypes.string,
-    size: PropTypes.number
+  color: PropTypes.string,
+  size: PropTypes.number,
+  variant: PropTypes.string,
+  sx: PropTypes.string
 };
 
 export default Dot;

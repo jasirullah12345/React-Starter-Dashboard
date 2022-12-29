@@ -1,35 +1,38 @@
-import {ACTIVE_COMPONENT, ACTIVE_ITEM, OPEN_COMPONENT_DRAWER, OPEN_DRAWER} from "../actionTypes";
+// third-party
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState =  {
-    openItem: ['dashboard'],
-    openComponent: 'buttons',
-    drawerOpen: false,
-    componentDrawerOpen: true
-}
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case ACTIVE_ITEM:
-            return {
-                ...state,
-                openItem: action.payload.openItem
-            }
-        case ACTIVE_COMPONENT:
-            return {
-                ...state,
-                openComponent: action.payload.openComponent
-            }
-        case OPEN_DRAWER:
-            return {
-                ...state,
-                drawerOpen: action.payload.drawerOpen
-            }
-        case OPEN_COMPONENT_DRAWER:
-            return {
-                ...state,
-                componentDrawerOpen: action.payload.componentDrawerOpen
-            }
-        default:
-            return state;
+// initial state
+const initialState = {
+  openItem: ['dashboard'],
+  openComponent: 'buttons',
+  drawerOpen: false,
+  componentDrawerOpen: true
+};
+
+// ==============================|| SLICE - MENU ||============================== //
+
+const menu = createSlice({
+  name: 'menu',
+  initialState,
+  reducers: {
+    activeItem(state, action) {
+      state.openItem = action.payload.openItem;
+    },
+
+    activeComponent(state, action) {
+      state.openComponent = action.payload.openComponent;
+    },
+
+    openDrawer(state, action) {
+      state.drawerOpen = action.payload.drawerOpen;
+    },
+
+    openComponentDrawer(state, action) {
+      state.componentDrawerOpen = action.payload.componentDrawerOpen;
     }
-}
-export default reducer
+  }
+});
+
+export default menu.reducer;
+
+export const { activeItem, activeComponent, openDrawer, openComponentDrawer } = menu.actions;
