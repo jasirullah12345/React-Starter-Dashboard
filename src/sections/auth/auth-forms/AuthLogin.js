@@ -37,7 +37,7 @@ const AuthLogin = () => {
   const [checked, setChecked] = React.useState(false);
   const [capsWarning, setCapsWarning] = React.useState(false);
 
-  const { isLoggedIn, firebaseEmailPasswordSignIn } = useAuth();
+  const { firebaseEmailPasswordSignIn } = useAuth();
   const scriptedRef = useScriptRef();
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -180,7 +180,7 @@ const AuthLogin = () => {
                   <Link
                     variant="h6"
                     component={RouterLink}
-                    to={isLoggedIn ? '/auth/forgot-password' : '/forgot-password'}
+                    to={'/forgot-password'}
                     color="text.primary"
                   >
                     Forgot Password?
