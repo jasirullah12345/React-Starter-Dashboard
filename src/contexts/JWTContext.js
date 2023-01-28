@@ -56,6 +56,7 @@ export const JWTProvider = ({ children }) => {
         const access_token = window.localStorage.getItem('access_token');
         if (access_token && verifyToken(access_token)) {
           setSession(access_token);
+          axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
           const response = await axios.get('/auth/profile');
           const user = response.data;
           dispatch({
@@ -84,6 +85,7 @@ export const JWTProvider = ({ children }) => {
   const login = async (email, password) => {
     const response = await axios.post('/auth/sign-in', { username: email, password });
     const { access_token } = response.data;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
     const profileResponse = await axios.get('/auth/profile');
     const user = profileResponse.data;
     setSession(access_token);
