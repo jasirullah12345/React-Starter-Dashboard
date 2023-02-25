@@ -1,12 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
-const axiosServices = axios.create();
+const API_SERVER_ADDRESS = process.env.REACT_APP_API_SERVER_ADDRESS
 
-// ==============================|| AXIOS - FOR MOCK SERVICES ||============================== //
-
-axiosServices.interceptors.response.use(
-  (response) => response,
-  (error) => Promise.reject((error.response && error.response.data) || 'Wrong Services')
-);
+const axiosServices = axios.create({
+    baseURL: API_SERVER_ADDRESS
+});
 
 export default axiosServices;

@@ -22,23 +22,23 @@ const initialState = {
   user: null
 };
 
-const verifyToken = (serviceToken) => {
-  if (!serviceToken) {
+const verifyToken = (access_token) => {
+  if (!access_token) {
     return false;
   }
-  const decoded = jwtDecode(serviceToken);
+  const decoded = jwtDecode(access_token);
   /**
    * Property 'exp' does not exist on type '<T = unknown>(token: string, options?: JwtDecodeOptions | undefined) => T'.
    */
   return decoded.exp > Date.now() / 1000;
 };
 
-const setSession = (serviceToken) => {
-  if (serviceToken) {
-    localStorage.setItem('serviceToken', serviceToken);
-    axios.defaults.headers.common.Authorization = `Bearer ${serviceToken}`;
+const setSession = (access_token) => {
+  if (access_token) {
+    localStorage.setItem('access_token', access_token);
+    axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
   } else {
-    localStorage.removeItem('serviceToken');
+    localStorage.removeItem('access_token');
     delete axios.defaults.headers.common.Authorization;
   }
 };
@@ -53,11 +53,12 @@ export const JWTProvider = ({ children }) => {
   useEffect(() => {
     const init = async () => {
       try {
-        const serviceToken = window.localStorage.getItem('serviceToken');
-        if (serviceToken && verifyToken(serviceToken)) {
-          setSession(serviceToken);
-          const response = await axios.get('/api/account/me');
-          const { user } = response.data;
+        const access_token = window.localStorage.getItem('access_token');
+        if (access_token && verifyToken(access_token)) {
+          setSession(access_token);
+          axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+          const response = await axios.get('/auth/profile');
+          const user = response.data;
           dispatch({
             type: LOGIN,
             payload: {
@@ -82,9 +83,12 @@ export const JWTProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', { email, password });
-    const { serviceToken, user } = response.data;
-    setSession(serviceToken);
+    const response = await axios.post('/auth/sign-in', { username: email, password });
+    const { access_token } = response.data;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`
+    const profileResponse = await axios.get('/auth/profile');
+    const user = profileResponse.data;
+    setSession(access_token);
     dispatch({
       type: LOGIN,
       payload: {
