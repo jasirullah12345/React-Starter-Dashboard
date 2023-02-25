@@ -16,7 +16,7 @@ const AuthFooter = () => {
       >
         <Typography variant="subtitle2" color="secondary" component="span">
           This site is protected by{' '}
-          <Typography component={Link} variant="subtitle2" href="https://sparkosol.com" target="_blank" underline="hover">
+          <Typography component={Link} variant="subtitle2" href="https://devscolab.com" target="_blank" underline="hover">
             Privacy Policy
           </Typography>
         </Typography>
@@ -26,7 +26,7 @@ const AuthFooter = () => {
             variant="subtitle2"
             color="secondary"
             component={Link}
-            href="https://sparkosol.com"
+            href="https://devscolab.com"
             target="_blank"
             underline="hover"
           >
@@ -36,7 +36,7 @@ const AuthFooter = () => {
             variant="subtitle2"
             color="secondary"
             component={Link}
-            href="https://sparkosol.com"
+            href="https://devscolab.com"
             target="_blank"
             underline="hover"
           >
@@ -46,7 +46,7 @@ const AuthFooter = () => {
             variant="subtitle2"
             color="secondary"
             component={Link}
-            href="https://sparkosol.com"
+            href="https://devscolab.com"
             target="_blank"
             underline="hover"
           >
