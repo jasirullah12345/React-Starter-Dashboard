@@ -19,7 +19,7 @@ import { openDrawer } from 'store/reducers/menu';
 
 const MainLayout = () => {
   const theme = useTheme();
-  const matchDownLG = useMediaQuery(theme.breakpoints.down('xl'));
+  const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
 
   const { container, miniDrawer } = useConfig();
   const dispatch = useDispatch();
@@ -36,9 +36,9 @@ const MainLayout = () => {
 
   // set media wise responsive drawer
   useEffect(() => {
-    if (!miniDrawer) {
-      setOpen(!matchDownLG);
-      dispatch(openDrawer({ drawerOpen: !matchDownLG }));
+    if (matchDownLG && !miniDrawer) {
+      setOpen(false);
+      dispatch(openDrawer({ drawerOpen: false }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchDownLG]);
